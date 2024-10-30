@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agregar Tareas</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Form Section -->
+  <section class="form-section" id="form-section">
+    <h1>Agregar Rutinas y Recordatorios</h1>
+    <form>
+      <label for="task">Nombre de Hospital mas cercano:</label>
+      <input type="text" id="task" name="task" required>
+      
+      <label for="date">Fecha de consultas medicas:</label>
+      <input type="date" id="date" name="date" required>
+      
+      <label for="time">Hora de consultas medicas:</label>
+      <input type="time" id="time" name="time" required>
+
+      <h1>Datos Personales</h1>
+
+      <label for="task">Nombre del usuario completo:</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="task">Direccion domiciliar :</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="dui">Número de DUI:</label>
+      <input type="text" id="dui" name="dui" pattern="[0-9]{8}-[0-9]{1}" placeholder="########-#" maxlength="10" required>
+
+      <script>
+  document.getElementById('dui').addEventListener('input', function (e) {
+      let value = e.target.value.replace(/-/g, ''); // Elimina el guion si ya está
+      if (value.length > 8) {
+          value = value.slice(0, 8) + '-' + value.slice(8); // Inserta el guion después de 8 dígitos
+      }
+      e.target.value = value;
+  });
+</script>
+
+
+      <label for="number">Número de teléfono personal:</label>
+      <input type="number" id="number" name="number" step="any" required>
+
+      <label for="number">Presion Arterial:</label>
+      <input type="number" id="number" name="number" step="any" required>
+
+      <label for="number">Peso/(kg):</label>
+      <input type="number" id="number" name="number" step="any" required>
+
+      <label for="number">Altura (cm):</label>
+      <input type="number" id="number" name="number" step="any" required>
+
+      <label for="number">Glucosa:</label>
+      <input type="number" id="number" name="number" step="any" required>
+
+      <h1>Referencias  en caso de emergencias</h1>
+
+      <label for="task">Referencia 1(Familares o personas mas cercanas):</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="task">Referencia 2(Familares o personas mas cercanas):</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="phone">Número de teléfono 1 :</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+      <label for="phone">Número de teléfono 2:</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+      <label for="task">Direccion domiciliar 1:</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="task">Direccion domiciliar 2:</label>
+      <input type="text" id="task" name="task" required>
+
+      <h1>Medicamentos</h1>
+
+      <label for="task">Medicamentos Recetados:</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="task">Cada cuanto tiempo :</label>
+      <input type="text" id="task" name="task" required>
+
+      <label for="task">Recordatorio:</label>
+      <input type="text" id="task" name="task" required>
+
+      <button type="submit">Agregar</button>
+      <button type="submit">Guardar</button>
+    </form>
+  </section>
+    
+    <!-- Button "Regresar" for Cuidado Personal card -->
+    <button class="card__button" onclick="goToReminder()">Regresar</button>
+  </form>
+
+  <a href="tarjetas.html">Volver al Inicio</a>
+</body>
+</html>

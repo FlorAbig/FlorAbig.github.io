@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Time tracking dashboard</title>
+  <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'Rubik', sans-serif;
+      background-color: #fdffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px;
+    }
+
+    /* Main container */
+    .main-container {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Main card (Principal) */
+    .main-card {
+      background-color: #57f5d3;
+      color: rgb(0, 0, 0);
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .main-card__user img {
+      width: 80px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .main-card__title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .main-card__name {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    .main-card__dates {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1rem;
+    }
+
+    .main-card__frequency {
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .main-card__frequency.--active {
+      background-color: #000000;
+    }
+
+    /* Cards (Activities) */
+    .second-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .card__background img {
+      width: 40px;
+      height: 40px;
+      margin-right: 1rem;
+    }
+
+    .card__details {
+      flex-grow: 1;
+    }
+
+    .card__title {
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .card__time {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .card__hour {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    /* Form section */
+    .form-section {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .form-section label {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .form-section input {
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .form-section button {
+      padding: 0.75rem;
+      border-radius: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-section button:hover {
+      background-color: #0056b3;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Login and Registration Section -->
+  <section class="auth-section">
+    <!-- Login Form -->
+    <div id="login-form" class="form-container">
+      <h2>Iniciar Sesión en Control De Rutinas</h2>
+      <form id="login" action="index.html" method="GET">
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" name="email" required>
+        <label for="login-password">Contraseña:</label>
+        <input type="password" id="login-password" name="password" required>
+        <button type="submit">Iniciar Sesión</button>
+      </form>
+      <p>¿No tienes cuenta en nuestra app de control de rutinas? <a href="#" onclick="toggleForm()">Regístrate aquí</a></p>
+    </div>
+
+    <!-- Registration Form -->
+    <div id="register-form" class="form-container" style="display: none;">
+      <h2>Registro</h2>
+      <form id="register" action="index.html" method="GET">
+        <label for="register-name">Nombre:</label>
+        <input type="text" id="register-name" name="name" required>
+        <label for="register-email">Email:</label>
+        <input type="email" id="register-email" name="email" required>
+        <label for="register-password">Contraseña:</label>
+        <input type="password" id="register-password" name="password" required>
+        <button type="submit">Registrarse</button>
+      </form>
+      <p>¿Ya tienes cuenta? <a href="#" onclick="toggleForm()">Inicia sesión aquí</a></p>
+    </div>
+  </section>
+
+  <!-- Main Content (Hidden until logged in) -->
+  <main class="main-container" style="display:none;" id="dashboard">
+    <section class="first-section">
+      <div class="main-card">
+        <div class="main-card__user">
+          <img class="main-card__image" src="./images/imagen.png" alt="user.img">
+        </div>
+        <p class="main-card__title">Control de Rutinas diarias</p>
+        <p class="main-card__name">Flor Gonzalez</p>
+      </div>
+
+      <div class="main-card__dates">
+        <p id="daily" class="main-card__frequency --active">Diario</p>
+        <p id="weekly" class="main-card__frequency">Semanal</p>
+        <p id="monthly" class="main-card__frequency">Mensual</p>
+      </div>
+    </section>
+
+    <section class="second-section">
+      <div class="card" onclick="showTaskForm()">
+        <div class="card__background">
+          <img class="card__image" src="./images/icon-work.svg" alt="icon-work">
+        </div>
+        <div class="card__details">
+          <p class="card__title">Trabajo</p>
+          <div class="card__time">
+            <span class="card__hour">32hrs</span>
+            <span class="card__previous">Anterior - 36hrs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showTaskForm()">
+        <div class="card__background">
+          <img class="card__image" src="./images/icon-play.svg" alt="icon-play">
+        </div>
+        <div class="card__details">
+          <p class="card__title">Juegos</p>
+          <div class="card__time">
+            <span class="card__hour">10hrs</span>
+            <span class="card__previous">Anterior - 8hrs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showTaskForm()">
+        <div class="card__background">
+          <img class="card__image" src="./images/icon-study.svg" alt="icon-study">
+        </div>
+        <div class="card__details">
+          <p class="card__title">Estudio</p>
+          <div class="card__time">
+            <span class="card__hour">4hrs</span>
+            <span class="card__previous">Anterior - 7hrs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showTaskForm()">
+        <div class="card__background">
+          <img class="card__image" src="./images/icon-exercise.svg" alt="icon-exercise">
+        </div>
+        <div class="card__details">
+          <p class="card__title">Ejercicio</p>
+          <div class="card__time">
+            <span class="card__hour">4hrs</span>
+            <span class="card__previous">Anterior - 5hrs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showTaskForm()">
+        <div class="card__background">
+          <img class="card__image" src="./images/icon-self-care.svg" alt="icon-self-care">
+        </div>
+        <div class="card__details">
+          <p class="card__title">Cuidado personal</p>
+          <div class="card__time">
+            <span class="card__hour">2hrs</span>
+            <span class="card__previous">Anterior - 2hrs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" onclick="showTaskForm()">
+        <div class="card__background">
+          <img class="card__image" src="./images/icon-social.svg" alt="icon-social">
+        </div>
+        <div class="card__details">
+          <p class="card__title">Horas Libres</p>
+          <div class="card__time">
+            <span class="card__hour">7hrs</span>
+            <span class="card__previous">Anterior - 2hrs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <button type="submit">Ingresar</button>
+    <a href="recordatorio.html">Ingresar</a>
+    </form>
+  </section>
+  
+  </main>
+
+  <script>
+    // Toggle between Login and Register forms
+    function toggleForm() {
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+      registerForm.style.display = registerForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Show dashboard after successful login/registration
+    document.getElementById('login').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('dashboard').style.display = 'block';
+      document.querySelector('.auth-section').style.display = 'none';
+    });
+
+    document.getElementById('register').addEventListener('submit', function(event) {
+      event.preventDefault();
+      document.getElementById('dashboard').style.display = 'block';
+      document.querySelector('.auth-section').style.display = 'none';
+    });
+
+    // Function to show the task form
+    function showTaskForm() {
+      document.getElementById('form-section').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
