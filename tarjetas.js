@@ -1,3 +1,4 @@
+
 // Function to handle switching between daily, weekly, and monthly views
 document.addEventListener('DOMContentLoaded', function() {
     const frequencyButtons = document.querySelectorAll('.main-card__frequency');

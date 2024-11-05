@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <title>Control de Rutinas Diarias</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./tarjetas.css">
 
   <style>
     /* Global styles */
@@ -52,24 +52,6 @@
     .main-card__name {
       font-size: 1rem;
       font-weight: bold;
-    }
-
-    .main-card__dates {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 1rem;
-    }
-
-    .main-card__frequency {
-      font-size: 0.9rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .main-card__frequency.--active {
-      background-color: #000000;
     }
 
     /* Cards (Activities) */
@@ -135,6 +117,30 @@
       background-color: #333;
       color: white;
     }
+
+    /* Adjust styles for mobile devices */
+    @media (max-width: 600px) {
+      .main-container {
+        padding: 0;
+      }
+
+      .main-card {
+        padding: 1rem;
+      }
+
+      .main-card__user img {
+        width: 60px;
+      }
+
+      .card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .card__background img {
+        margin-bottom: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -145,109 +151,71 @@
     <section class="first-section">
       <div class="main-card">
         <div class="main-card__user">
-          <img class="main-card__image" src="./images/imagen.png" alt="user.img">
         </div>
         <p class="main-card__title">Control de Rutinas Diarias</p>
         <p class="main-card__name">Flor Gonzalez</p>
-      </div>
-
-      <div class="main-card__dates">
-        <p id="daily" class="main-card__frequency --active">Diario</p>
-        <p id="weekly" class="main-card__frequency">Semanal</p>
-        <p id="monthly" class="main-card__frequency">Mensual</p>
       </div>
     </section>
 
     <!-- Activity Cards -->
     <section class="second-section">
+      <!-- Trabajo -->
       <div class="card">
         <div class="card__background">
-          <img class="card__image" src="./images/icon-work.svg" alt="icon-work">
         </div>
         <div class="card__details">
           <p class="card__title">Trabajo</p>
           <div class="card__time">
-            <span class="card__hour">32hrs</span>
-            <span class="card__previous">Anterior - 36hrs</span>
           </div>
         </div>
+        <button class="card__button" onclick="goToPage('trabajo.html')">Ingresar</button>
       </div>
 
+      <!-- Datos Estudiantiles -->
       <div class="card">
         <div class="card__background">
-          <img class="card__image" src="./images/icon-play.svg" alt="icon-play">
         </div>
         <div class="card__details">
-          <p class="card__title">Juegos</p>
+          <p class="card__title">Datos Estudiantiles</p>
           <div class="card__time">
-            <span class="card__hour">10hrs</span>
-            <span class="card__previous">Anterior - 8hrs</span>
           </div>
         </div>
+        <button class="card__button" onclick="goToPage('estudio.html')">Ingresar</button>
       </div>
 
+      <!-- Ejercicio -->
       <div class="card">
         <div class="card__background">
-          <img class="card__image" src="./images/icon-study.svg" alt="icon-study">
-        </div>
-        <div class="card__details">
-          <p class="card__title">Estudio</p>
-          <div class="card__time">
-            <span class="card__hour">4hrs</span>
-            <span class="card__previous">Anterior - 7hrs</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__background">
-          <img class="card__image" src="./images/icon-exercise.svg" alt="icon-exercise">
         </div>
         <div class="card__details">
           <p class="card__title">Ejercicio</p>
           <div class="card__time">
-            <span class="card__hour">4hrs</span>
-            <span class="card__previous">Anterior - 5hrs</span>
           </div>
         </div>
+        <button class="card__button" onclick="goToPage('ejercicio.html')">Ingresar</button>
       </div>
 
+      <!-- Datos de Emergencia -->
       <div class="card">
         <div class="card__background">
-          <img class="card__image" src="./images/icon-self-care.svg" alt="icon-self-care">
         </div>
         <div class="card__details">
-          <p class="card__title">Cuidado personal</p>
+          <p class="card__title">Datos en caso de emergencias</p>
           <div class="card__time">
-            <span class="card__hour">2hrs</span>
-            <span class="card__previous">Anterior - 2hrs</span>
           </div>
         </div>
-        <!-- Button "Ingresar" for Cuidado Personal card -->
-        <button class="card__button" onclick="goToReminder()">Ingresar</button>
-      </div>
-
-      <div class="card">
-        <div class="card__background">
-          <img class="card__image" src="./images/icon-social.svg" alt="icon-social">
-        </div>
-        <div class="card__details">
-          <p class="card__title">Horas Libres</p>
-          <div class="card__time">
-            <span class="card__hour">7hrs</span>
-            <span class="card__previous">Anterior - 2hrs</span>
-          </div>
-        </div>
+        <button class="card__button" onclick="goToPage('recordatorio.html')">Ingresar</button>
       </div>
     </section>
   </main>
 
   <script>
-    // Function to redirect to the reminder page when clicking "Ingresar" on Cuidado Personal card
-    function goToReminder() {
-      window.location.href = "./recordatorio.html";
+    // Function to redirect to the specified page
+    function goToPage(page) {
+      window.location.href = `./${page}`;
     }
   </script>
 </body>
 </html>
+
 
